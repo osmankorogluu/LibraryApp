@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibraryApp.Domain.Common
 {
-    public abstract class BaseEntity
+    public interface  BaseEntity
     {
         public Guid Id { get; set; }
     }
