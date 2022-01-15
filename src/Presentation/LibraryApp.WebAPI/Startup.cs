@@ -34,12 +34,14 @@ namespace LibraryApp.WebAPI
         {
 
 
-            services.AddAutoMapper(typeof(Startup));
+            //AutoMapper registration
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<MappingProfile>();
+            });
+            services.AddSingleton(config.CreateMapper());
 
-            //Injection
-            //services.AddSingleton<IBookService, BookManager>();
-            //services.AddSingleton<ICategoryService, CategoryManager>();
-
+            //injection
             services.AddSingleton<IBookRepository, EfBookRepository>();
             services.AddSingleton<ICategoryRepository, EfCategoryRepository>();
             services.AddSingleton<IBookService, BookManager>();

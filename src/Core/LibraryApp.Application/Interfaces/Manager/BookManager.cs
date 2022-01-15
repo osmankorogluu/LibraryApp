@@ -18,36 +18,31 @@ namespace LibraryApp.Application.Interfaces.Manager
 
         public BookManager(IMapper mapper,IBookRepository bookRepository)
         {
-            
              _mapper = mapper;
             _bookRepository = bookRepository;
         }
 
-       BookDTO bookDTO = new BookDTO();
-
-        public void Add(Book book)
+        public void Add(BookDTO bookDTO)
         {
-            var book2 = _mapper.Map<Book>(bookDTO);
-            _bookRepository.Add(book2);
+            var bookEntity = _mapper.Map<Book>(bookDTO);
+            _bookRepository.Add(bookEntity);
         }
 
-        public void Delete(Book book)
+        public void Delete(BookDTO bookDTO)
         {
-            _bookRepository.Delete(book);
+            var bookEntity = _mapper.Map<Book>(bookDTO);
+            _bookRepository.Delete(bookEntity);
         }
        
         public List<Book> GetAll()
         {
-            //var config = new MapperConfiguration(cfg => cfg.CreateMap<Book, BookDTO>());
-            //var mapper = config.CreateMapper();
-            //BookDTO dto = mapper.Map<BookDTO>(Book);
-
             return  _bookRepository.GetAll();
         }
 
-        public void Update(Book book)
+        public void Update(BookDTO bookDTO)
         {
-            _bookRepository.Update(book);
+            var bookEntity = _mapper.Map<Book>(bookDTO);
+           _bookRepository.Update(bookEntity);
         }
     }
 }

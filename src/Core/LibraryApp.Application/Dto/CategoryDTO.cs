@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace LibraryApp.Application.Dto
 {
-   public class BookDTO
+   public class CategoryDTO
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
         public string CategoryName { get; set; }
     }
 }

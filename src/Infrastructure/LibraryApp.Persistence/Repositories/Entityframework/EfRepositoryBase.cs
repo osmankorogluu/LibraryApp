@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace LibraryApp.Persistence.Repositories.Entityframework
 {
     public class EfRepositoryBase<TEntity, TContext> : IRepository<TEntity>
-        where TEntity : class, BaseEntity, new()
+        where TEntity :  BaseEntity, new()
         where TContext : DbContext, new()
 
     {
@@ -62,7 +62,7 @@ namespace LibraryApp.Persistence.Repositories.Entityframework
                 updatedEntity.State = EntityState.Modified;
                 context.SaveChanges();
 
-            }//
+            }
         }
     }
 }

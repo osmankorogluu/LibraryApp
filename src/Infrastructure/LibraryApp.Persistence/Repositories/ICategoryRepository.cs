@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LibraryApp.Persistence.Repositories
 {
-   public interface ICategoryRepository:IRepository<Category>
+    public interface ICategoryRepository:IRepository<Category>
     {
     }
 }

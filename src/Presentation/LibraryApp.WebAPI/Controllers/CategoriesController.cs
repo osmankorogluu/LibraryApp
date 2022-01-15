@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using LibraryApp.Application.Dto;
+﻿using LibraryApp.Application.Dto;
 using LibraryApp.Application.Interfaces;
-using LibraryApp.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,41 +11,41 @@ namespace LibraryApp.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BooksController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
-        private readonly IBookService _bookService;
-        public BooksController(IBookService bookService)
+        private readonly ICategoryService _categoryService;
+
+        public CategoriesController(ICategoryService categoryService)
         {
-            _bookService = bookService;
+            _categoryService = categoryService;
         }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _bookService.GetAll();
+            var result = _categoryService.GetAll();
             return Ok(result);
         }
 
         [HttpPost("add")]
-        public IActionResult Add(BookDTO bookDTO)
+        public IActionResult Add(CategoryDTO categoryDTO)
         {
-            _bookService.Add(bookDTO);
+            _categoryService.Add(categoryDTO);
             return Ok();
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(BookDTO bookDTO)
+        public IActionResult Delete(CategoryDTO categoryDTO)
         {
-            _bookService.Delete(bookDTO);
+            _categoryService.Delete(categoryDTO);
             return Ok();
         }
 
         [HttpPost("update")]
-        public IActionResult Update(BookDTO bookDTO)
+        public IActionResult Update(CategoryDTO categoryDTO)
         {
-            _bookService.Update(bookDTO);
+            _categoryService.Update(categoryDTO);
             return Ok();
         }
-
     }
 }

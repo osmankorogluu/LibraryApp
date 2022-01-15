@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using LibraryApp.Application.Dto;
 using LibraryApp.Domain.Common;
 using LibraryApp.Domain.Entities;
 using LibraryApp.Persistence.Context;
