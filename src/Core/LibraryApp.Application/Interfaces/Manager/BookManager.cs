@@ -1,4 +1,7 @@
-﻿using LibraryApp.Domain.Entities;
+﻿using AutoMapper;
+using LibraryApp.Application.AutoMapper;
+using LibraryApp.Application.Dto;
+using LibraryApp.Domain.Entities;
 using LibraryApp.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,25 +14,35 @@ namespace LibraryApp.Application.Interfaces.Manager
     public class BookManager : IBookService
     {
         private readonly IBookRepository _bookRepository;
+        private readonly IMapper _mapper;
 
-        public BookManager(IBookRepository bookRepository)
+        public BookManager(IMapper mapper,IBookRepository bookRepository)
         {
+            
+             _mapper = mapper;
             _bookRepository = bookRepository;
         }
 
+       BookDTO bookDTO = new BookDTO();
+
         public void Add(Book book)
         {
-            _bookRepository.Add(book);
+            var book2 = _mapper.Map<Book>(bookDTO);
+            _bookRepository.Add(book2);
         }
 
         public void Delete(Book book)
         {
             _bookRepository.Delete(book);
         }
-
+       
         public List<Book> GetAll()
         {
-            return _bookRepository.GetAll();
+            //var config = new MapperConfiguration(cfg => cfg.CreateMap<Book, BookDTO>());
+            //var mapper = config.CreateMapper();
+            //BookDTO dto = mapper.Map<BookDTO>(Book);
+
+            return  _bookRepository.GetAll();
         }
 
         public void Update(Book book)

@@ -9,8 +9,8 @@ namespace LibraryApp.Domain.Entities
 {
     public class Category : BaseEntity
     {
-        // eevt 
-        public Guid Id { get; set; }
+       
+      
         public string CategoryName { get; set; }
     }
 }

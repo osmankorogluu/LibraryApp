@@ -14,5 +14,6 @@ namespace LibraryApp.Persistence.Context
         {
             optionsBuilder.UseSqlServer(@"Server=DESKTOP-0A073BJ\SQLEXPRESS;Database=LibraryApp;Trusted_Connection=true");
         }
+        DbSet<Book> Books { get; set; }
     }
 }

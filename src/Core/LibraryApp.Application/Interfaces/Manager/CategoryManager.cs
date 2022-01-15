@@ -1,4 +1,5 @@
-﻿using LibraryApp.Domain.Entities;
+﻿using AutoMapper;
+using LibraryApp.Domain.Entities;
 using LibraryApp.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,16 @@ namespace LibraryApp.Application.Interfaces.Manager
     public class CategoryManager : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
-
+        
         public CategoryManager(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
+            
         }
 
         public void Add(Category category)
         {
+          
             _categoryRepository.Add(category);
         }
 

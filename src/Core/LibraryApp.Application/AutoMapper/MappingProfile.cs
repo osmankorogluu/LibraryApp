@@ -13,8 +13,9 @@ namespace LibraryApp.Application.AutoMapper
     {
         public MappingProfile()
         {
-            CreateMap<Book, BookDTO>()
-             .ForMember(p => p.Name, p1 => p1.MapFrom(x => x.Name));
+           var config= CreateMap<Book, BookDTO>()
+              .ForMember(p => p.Name, p1 => p1.MapFrom(x => x.Name));
+
         }
     }
 }

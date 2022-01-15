@@ -1,4 +1,9 @@
 using AutoMapper;
+using LibraryApp.Application.AutoMapper;
+using LibraryApp.Application.Interfaces;
+using LibraryApp.Application.Interfaces.Manager;
+using LibraryApp.Persistence.Repositories;
+using LibraryApp.Persistence.Repositories.Entityframework;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,9 +32,21 @@ namespace LibraryApp.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-          
+
 
             services.AddAutoMapper(typeof(Startup));
+
+            //Injection
+            //services.AddSingleton<IBookService, BookManager>();
+            //services.AddSingleton<ICategoryService, CategoryManager>();
+
+            services.AddSingleton<IBookRepository, EfBookRepository>();
+            services.AddSingleton<ICategoryRepository, EfCategoryRepository>();
+            services.AddSingleton<IBookService, BookManager>();
+            services.AddSingleton<ICategoryService, CategoryManager>();
+
+
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>

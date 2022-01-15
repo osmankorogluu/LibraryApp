@@ -10,7 +10,7 @@ namespace LibraryApp.Persistence.Context
 {
    public interface ILibraryDatabaseContext
     {
-        DbSet<Book> Books { get; set; }
-        DbSet<Category> Categories { get; set; }
+      
+        //DbSet<Category> Categories { get; set; }
     }
 }
