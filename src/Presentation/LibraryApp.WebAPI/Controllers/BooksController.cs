@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using LibraryApp.Application.Dto;
+using LibraryApp.Application.Dto.BookDto;
+using LibraryApp.Application.FluentValidation;
 using LibraryApp.Application.Interfaces;
 using LibraryApp.Domain.Entities;
 using Microsoft.AspNetCore.Http;
@@ -21,31 +23,36 @@ namespace LibraryApp.WebAPI.Controllers
             _bookService = bookService;
         }
 
-        [HttpGet("getall")]
+        [HttpGet]
+        [Route("getall")]
         public IActionResult GetAll()
         {
             var result = _bookService.GetAll();
             return Ok(result);
         }
 
-        [HttpPost("add")]
-        public IActionResult Add(BookDTO bookDTO)
+        [HttpPost]
+        [Route("add")]
+        public IActionResult Add(BookAddDto bookAddDto)
         {
-            _bookService.Add(bookDTO);
+            _bookService.Add(bookAddDto);
+            return Ok();
+
+        }
+
+        [HttpPost]
+        [Route("delete")]
+        public IActionResult Delete(BookDto bookDto)
+        {
+            _bookService.Delete(bookDto);
             return Ok();
         }
 
-        [HttpPost("delete")]
-        public IActionResult Delete(BookDTO bookDTO)
+        [HttpPost]
+        [Route("update")]
+        public IActionResult Update(BookUpdateDto bookUpdateDto)
         {
-            _bookService.Delete(bookDTO);
-            return Ok();
-        }
-
-        [HttpPost("update")]
-        public IActionResult Update(BookDTO bookDTO)
-        {
-            _bookService.Update(bookDTO);
+            _bookService.Update(bookUpdateDto);
             return Ok();
         }
 

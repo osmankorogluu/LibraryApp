@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryApp.Application.Dto
+namespace LibraryApp.Application.Dto.BookDto
 {
-   public class BookDTO
+   public class BookDto
     {
         public string Name { get; set; }
         public string Writer { get; set; }

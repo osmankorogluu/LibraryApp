@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryApp.Application.Dto
+namespace LibraryApp.Application.Dto.CategoryDto
 {
-   public class CategoryDTO
+   public class CategoryUpdateDto
     {
+        public int Id { get; set; }
         public string CategoryName { get; set; }
     }
 }

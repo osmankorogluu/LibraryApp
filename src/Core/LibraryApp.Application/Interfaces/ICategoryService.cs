@@ -1,4 +1,5 @@
 ﻿using LibraryApp.Application.Dto;
+using LibraryApp.Application.Dto.CategoryDto;
 using LibraryApp.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,8 @@ namespace LibraryApp.Application.Interfaces
    public interface ICategoryService
     {
         List<Category> GetAll();
-        void Add(CategoryDTO categoryDTO);
-        void Delete(CategoryDTO categoryDTO);
-        void Update(CategoryDTO categoryDTO);
+        void Add(CategoryAddDto categoryAddDto);
+        void Delete(CategoryDto categoryDto);
+        void Update(CategoryUpdateDto categoryUpdateDto);
     }
 }

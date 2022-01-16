@@ -1,5 +1,7 @@
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using LibraryApp.Application.AutoMapper;
+using LibraryApp.Application.FluentValidation;
 using LibraryApp.Application.Interfaces;
 using LibraryApp.Application.Interfaces.Manager;
 using LibraryApp.Persistence.Repositories;
@@ -49,7 +51,8 @@ namespace LibraryApp.WebAPI
 
 
 
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<BookAddDtoValidator>());
+            services.AddControllers().AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<CategoryAddDtoValidator>());
 
             services.AddSwaggerGen(c =>
             {

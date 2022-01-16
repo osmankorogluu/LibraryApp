@@ -1,5 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using FluentValidation.Results;
 using LibraryApp.Application.Dto;
+using LibraryApp.Application.Dto.CategoryDto;
+using LibraryApp.Application.FluentValidation;
+using LibraryApp.Application.FluentValidation.CategoryValidation;
 using LibraryApp.Domain.Entities;
 using LibraryApp.Persistence.Repositories;
 using System;
@@ -14,23 +19,33 @@ namespace LibraryApp.Application.Interfaces.Manager
     {
         private readonly IMapper _mapper;
         private readonly ICategoryRepository _categoryRepository;
-        
+
         public CategoryManager(IMapper mapper, ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
             _mapper = mapper;
         }
 
-        public void Add(CategoryDTO categoryDTO)
-        {
 
-            var categoryEntity = _mapper.Map<Category>(categoryDTO);
-            _categoryRepository.Add(categoryEntity);
+        public void Add(CategoryAddDto categoryAddDto)
+        {
+            CategoryAddDtoValidator validator = new CategoryAddDtoValidator();
+
+            ValidationResult result = validator.Validate(categoryAddDto);
+            if (!result.IsValid)
+            {
+                throw new ValidationException(result.Errors);
+            }
+            else
+            {
+                var categoryEntity = _mapper.Map<Category>(categoryAddDto);
+                _categoryRepository.Add(categoryEntity);
+            }
         }
 
-        public void Delete(CategoryDTO categoryDTO)
+        public void Delete(CategoryDto categoryDto)
         {
-            var categoryEntity = _mapper.Map<Category>(categoryDTO);
+            var categoryEntity = _mapper.Map<Category>(categoryDto);
             _categoryRepository.Delete(categoryEntity);
         }
 
@@ -39,10 +54,21 @@ namespace LibraryApp.Application.Interfaces.Manager
             return _categoryRepository.GetAll();
         }
 
-        public void Update(CategoryDTO categoryDTO)
+        public void Update(CategoryUpdateDto categoryUpdateDto)
         {
-            var categoryEntity = _mapper.Map<Category>(categoryDTO);
-            _categoryRepository.Update(categoryEntity);
+            CategoryUpdateDtoValidator validator = new CategoryUpdateDtoValidator();
+            ValidationResult result = validator.Validate(categoryUpdateDto);
+            if (!result.IsValid)
+            {
+                throw new ValidationException(result.Errors);
+            }
+            else
+            {
+                var categoryEntity = _mapper.Map<Category>(categoryUpdateDto);
+                _categoryRepository.Add(categoryEntity);
+            }
+
+           
         }
     }
 }

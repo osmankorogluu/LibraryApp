@@ -1,4 +1,4 @@
-﻿using LibraryApp.Application.Dto;
+﻿using LibraryApp.Application.Dto.BookDto;
 using LibraryApp.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,9 +10,9 @@ namespace LibraryApp.Application.Interfaces
 {
    public interface IBookService
     {
-        List<Book> GetAll();
-        void Add(BookDTO bookDTO);
-        void Delete(BookDTO bookDTO);
-        void Update(BookDTO bookDTO);
+        List<Book>GetAll();
+        void Add(BookAddDto bookAddDto);
+        void Delete(BookDto bookDto);
+        void Update(BookUpdateDto bookUpdateDto);
     }
 }

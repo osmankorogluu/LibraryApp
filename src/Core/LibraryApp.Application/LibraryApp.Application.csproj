@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -12,6 +12,9 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.6" />
   </ItemGroup>
 
   <ItemGroup>

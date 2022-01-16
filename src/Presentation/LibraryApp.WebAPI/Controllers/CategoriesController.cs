@@ -1,4 +1,5 @@
 ﻿using LibraryApp.Application.Dto;
+using LibraryApp.Application.Dto.CategoryDto;
 using LibraryApp.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,31 +21,35 @@ namespace LibraryApp.WebAPI.Controllers
             _categoryService = categoryService;
         }
 
-        [HttpGet("getall")]
+        [HttpGet]
+        [Route("getall")]
         public IActionResult GetAll()
         {
             var result = _categoryService.GetAll();
             return Ok(result);
         }
 
-        [HttpPost("add")]
-        public IActionResult Add(CategoryDTO categoryDTO)
+        [HttpPost]
+        [Route("add")]
+        public IActionResult Add(CategoryAddDto categoryAddDto)
         {
-            _categoryService.Add(categoryDTO);
+            _categoryService.Add(categoryAddDto);
             return Ok();
         }
 
-        [HttpPost("delete")]
-        public IActionResult Delete(CategoryDTO categoryDTO)
+        [HttpPost]
+        [Route("delete")]
+        public IActionResult Delete(CategoryDto categoryDto)
         {
-            _categoryService.Delete(categoryDTO);
+            _categoryService.Delete(categoryDto);
             return Ok();
         }
 
-        [HttpPost("update")]
-        public IActionResult Update(CategoryDTO categoryDTO)
+        [HttpPost]
+        [Route("update")]
+        public IActionResult Update(CategoryUpdateDto categoryUpdateDto)
         {
-            _categoryService.Update(categoryDTO);
+            _categoryService.Update(categoryUpdateDto);
             return Ok();
         }
     }
