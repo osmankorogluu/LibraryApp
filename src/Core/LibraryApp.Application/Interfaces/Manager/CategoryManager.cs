@@ -39,14 +39,14 @@ namespace LibraryApp.Application.Interfaces.Manager
             else
             {
                 var categoryEntity = _mapper.Map<Category>(categoryAddDto);
-                _categoryRepository.Add(categoryEntity);
+                _categoryRepository.AddAsync(categoryEntity);
             }
         }
 
         public void Delete(CategoryDto categoryDto)
         {
             var categoryEntity = _mapper.Map<Category>(categoryDto);
-            _categoryRepository.Delete(categoryEntity);
+            _categoryRepository.DeleteAsync(categoryEntity);
         }
 
         public List<Category> GetAll()
@@ -65,10 +65,10 @@ namespace LibraryApp.Application.Interfaces.Manager
             else
             {
                 var categoryEntity = _mapper.Map<Category>(categoryUpdateDto);
-                _categoryRepository.Add(categoryEntity);
+                _categoryRepository.UpdateAsync(categoryEntity);
             }
 
-           
+
         }
     }
 }

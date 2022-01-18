@@ -10,28 +10,27 @@ using System.Threading.Tasks;
 namespace LibraryApp.Persistence.Repositories.Entityframework
 {
     public class EfRepositoryBase<TEntity, TContext> : IRepository<TEntity>
-        where TEntity :  BaseEntity, new()
+        where TEntity : BaseEntity, new()
         where TContext : DbContext, new()
 
     {
-        public void Add(TEntity entity)
+        public async Task AddAsync(TEntity entity)
         {
             using (TContext context = new TContext())
             {
                 var addedEntity = context.Entry(entity);
                 addedEntity.State = EntityState.Added;
-                context.SaveChanges();
-
+                await context.SaveChangesAsync();
             }
         }
 
-        public void Delete(TEntity entity)
+        public async Task DeleteAsync(TEntity entity)
         {
             using (TContext context = new TContext())
             {
                 var deletedEntity = context.Entry(entity);
                 deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
+                await context.SaveChangesAsync();
 
             }
         }
@@ -54,13 +53,13 @@ namespace LibraryApp.Persistence.Repositories.Entityframework
             }
         }
 
-        public void Update(TEntity entity)
+        public async Task UpdateAsync(TEntity entity)
         {
             using (TContext context = new TContext())
             {
                 var updatedEntity = context.Entry(entity);
                 updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
+                await context.SaveChangesAsync();
 
             }
         }

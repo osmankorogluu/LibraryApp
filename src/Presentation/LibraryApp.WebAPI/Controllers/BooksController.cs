@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LibraryApp.Application.ComplexTypes;
 using LibraryApp.Application.Dto;
 using LibraryApp.Application.Dto.BookDto;
 using LibraryApp.Application.FluentValidation;
@@ -23,37 +24,57 @@ namespace LibraryApp.WebAPI.Controllers
             _bookService = bookService;
         }
 
+        [HttpPost]
+        [Route("add")]
+        public async Task<IActionResult> Add(BookAddDto bookAddDto)
+        {
+            var result = await _bookService.AddAsync(bookAddDto);
+            if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
+            {
+                return BadRequest(result);
+            }
+            else
+            {
+                return Ok(result);
+            }
+        }
+
+        [HttpPost]
+        [Route("delete")]
+        public async Task<IActionResult> Delete(BookDto bookDto)
+        {
+            var result = await _bookService.DeleteAsync(bookDto);
+            if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
+            {
+                return BadRequest(result);
+            }
+            else
+            {
+                return Ok(result);
+            }
+        }
+
+        [HttpPost]
+        [Route("update")]
+        public async Task<IActionResult> Update(BookUpdateDto bookUpdateDto)
+        {
+            var result = await _bookService.UpdateAsync(bookUpdateDto);
+            if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
+            {
+                return BadRequest(result);
+            }
+            else
+            {
+                return Ok();
+            }
+        }
+
         [HttpGet]
         [Route("getall")]
         public IActionResult GetAll()
         {
             var result = _bookService.GetAll();
             return Ok(result);
-        }
-
-        [HttpPost]
-        [Route("add")]
-        public IActionResult Add(BookAddDto bookAddDto)
-        {
-            _bookService.Add(bookAddDto);
-            return Ok();
-
-        }
-
-        [HttpPost]
-        [Route("delete")]
-        public IActionResult Delete(BookDto bookDto)
-        {
-            _bookService.Delete(bookDto);
-            return Ok();
-        }
-
-        [HttpPost]
-        [Route("update")]
-        public IActionResult Update(BookUpdateDto bookUpdateDto)
-        {
-            _bookService.Update(bookUpdateDto);
-            return Ok();
         }
 
     }

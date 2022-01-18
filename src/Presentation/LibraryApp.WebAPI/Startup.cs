@@ -43,7 +43,7 @@ namespace LibraryApp.WebAPI
             });
             services.AddSingleton(config.CreateMapper());
 
-            //injection
+            //injection burada mý yapayým 
             services.AddSingleton<IBookRepository, EfBookRepository>();
             services.AddSingleton<ICategoryRepository, EfCategoryRepository>();
             services.AddSingleton<IBookService, BookManager>();

@@ -8,6 +8,9 @@ using LibraryApp.Application.FluentValidation;
 using LibraryApp.Application.FluentValidation.BookValidation;
 using LibraryApp.Domain.Entities;
 using LibraryApp.Persistence.Repositories;
+using LibraryApp.Persistence.Result.ComplexTypes;
+using LibraryApp.Persistence.Result.Concrete;
+using LibraryApp.Persistence.Result.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,7 +31,7 @@ namespace LibraryApp.Application.Interfaces.Manager
             _bookRepository = bookRepository;
         }
 
-        public void Add(BookAddDto bookAddDto)
+        public async Task<IResult> AddAsync(BookAddDto bookAddDto)
         {
             BookAddDtoValidator validator = new BookAddDtoValidator();
 
@@ -37,19 +40,22 @@ namespace LibraryApp.Application.Interfaces.Manager
             if (!result.IsValid)
             {
                 throw new ValidationException(result.Errors);
-                
             }
+
             else
             {
                 var bookEntity = _mapper.Map<Book>(bookAddDto);
-                _bookRepository.Add(bookEntity);
+                await _bookRepository.AddAsync(bookEntity);
+                return new Result(ResultStatus.Success, messages: $"Başarıyla Eklendi");
             }
         }
 
-        public void Delete(BookDto bookDto)
+        public async Task<IResult> DeleteAsync(BookDto bookDto)
         {
             var bookEntity = _mapper.Map<Book>(bookDto);
-            _bookRepository.Delete(bookEntity);
+            await _bookRepository.DeleteAsync(bookEntity);
+            return new Result(ResultStatus.Success, messages: $"Başarıyla Silinmiştir");
+
         }
 
         public List<Book> GetAll()
@@ -57,7 +63,7 @@ namespace LibraryApp.Application.Interfaces.Manager
             return _bookRepository.GetAll();
         }
 
-        public void Update(BookUpdateDto bookUpdateDto)
+        public async Task<IResult> UpdateAsync(BookUpdateDto bookUpdateDto)
         {
 
             BookUpdateDtoValidator validator = new BookUpdateDtoValidator();
@@ -71,9 +77,11 @@ namespace LibraryApp.Application.Interfaces.Manager
             else
             {
                 var bookEntity = _mapper.Map<Book>(bookUpdateDto);
-                _bookRepository.Update(bookEntity);
+                await _bookRepository.UpdateAsync(bookEntity);
+                return new Result(ResultStatus.Success, messages: $"Başarıyla Güncelenmiştir.");
             }
-           
+
+
         }
 
 

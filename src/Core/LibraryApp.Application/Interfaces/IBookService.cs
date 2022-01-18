@@ -1,5 +1,6 @@
 ﻿using LibraryApp.Application.Dto.BookDto;
 using LibraryApp.Domain.Entities;
+using LibraryApp.Persistence.Result.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace LibraryApp.Application.Interfaces
 {
-   public interface IBookService
+    public interface IBookService
     {
-        List<Book>GetAll();
-        void Add(BookAddDto bookAddDto);
-        void Delete(BookDto bookDto);
-        void Update(BookUpdateDto bookUpdateDto);
+        List<Book> GetAll();
+        Task<IResult> AddAsync(BookAddDto bookAddDto);
+        Task<IResult> DeleteAsync(BookDto bookDto);
+        Task<IResult> UpdateAsync(BookUpdateDto bookUpdateDto);
     }
 }

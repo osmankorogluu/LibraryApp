@@ -12,8 +12,8 @@ namespace LibraryApp.Persistence.Repositories
     {
         List<T> GetAll(Expression<Func<T, bool>> filter = null);
         T Get(Expression<Func<T, bool>> filter);
-        void Add(T entity);
-        void Delete(T entity);
-        void Update(T entity);
+        Task AddAsync(T entity);
+        Task DeleteAsync(T entity);
+        Task UpdateAsync(T entity);
     }
 }
