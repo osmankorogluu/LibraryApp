@@ -7,6 +7,9 @@ using LibraryApp.Application.FluentValidation;
 using LibraryApp.Application.FluentValidation.CategoryValidation;
 using LibraryApp.Domain.Entities;
 using LibraryApp.Persistence.Repositories;
+using LibraryApp.Persistence.Result.ComplexTypes;
+using LibraryApp.Persistence.Result.Concrete;
+using LibraryApp.Persistence.Result.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +30,7 @@ namespace LibraryApp.Application.Interfaces.Manager
         }
 
 
-        public void Add(CategoryAddDto categoryAddDto)
+        public async Task<IResult> AddAsync(CategoryAddDto categoryAddDto)
         {
             CategoryAddDtoValidator validator = new CategoryAddDtoValidator();
 
@@ -39,22 +42,26 @@ namespace LibraryApp.Application.Interfaces.Manager
             else
             {
                 var categoryEntity = _mapper.Map<Category>(categoryAddDto);
-                _categoryRepository.AddAsync(categoryEntity);
+                await _categoryRepository.AddAsync(categoryEntity);
+                return new Result(ResultStatus.Success, messages: $"Kategory Başarıyla Eklendi!");
             }
         }
 
-        public void Delete(CategoryDto categoryDto)
+        public async Task<IResult> DeleteAsync(CategoryDto categoryDto)
         {
             var categoryEntity = _mapper.Map<Category>(categoryDto);
-            _categoryRepository.DeleteAsync(categoryEntity);
+            await _categoryRepository.DeleteAsync(categoryEntity);
+            return new Result(ResultStatus.Success, messages: $"Kategory Başarıyla Silindi!");
         }
 
-        public List<Category> GetAll()
+        public IDataResult<List<Category>> GetAll()
         {
-            return _categoryRepository.GetAll();
+            var category = _categoryRepository.GetAll();
+            return new DataResult<List<Category>>(ResultStatus.Success, message: "Listelendi!", category);
         }
 
-        public void Update(CategoryUpdateDto categoryUpdateDto)
+
+        public async Task<IResult> UpdateAsync(CategoryUpdateDto categoryUpdateDto)
         {
             CategoryUpdateDtoValidator validator = new CategoryUpdateDtoValidator();
             ValidationResult result = validator.Validate(categoryUpdateDto);
@@ -65,7 +72,8 @@ namespace LibraryApp.Application.Interfaces.Manager
             else
             {
                 var categoryEntity = _mapper.Map<Category>(categoryUpdateDto);
-                _categoryRepository.UpdateAsync(categoryEntity);
+                await _categoryRepository.UpdateAsync(categoryEntity);
+                return new Result(ResultStatus.Success, messages: $"Kategory Başarıyla Güncellendi!");
             }
 
 

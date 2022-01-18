@@ -1,6 +1,7 @@
 ﻿using LibraryApp.Application.Dto;
 using LibraryApp.Application.Dto.CategoryDto;
 using LibraryApp.Domain.Entities;
+using LibraryApp.Persistence.Result.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace LibraryApp.Application.Interfaces
 {
-   public interface ICategoryService
+    public interface ICategoryService
     {
-        List<Category> GetAll();
-        void Add(CategoryAddDto categoryAddDto);
-        void Delete(CategoryDto categoryDto);
-        void Update(CategoryUpdateDto categoryUpdateDto);
+        IDataResult<List<Category>> GetAll();
+        Task<IResult> AddAsync(CategoryAddDto categoryAddDto);
+        Task<IResult> DeleteAsync(CategoryDto categoryDto);
+        Task<IResult> UpdateAsync(CategoryUpdateDto categoryUpdateDto);
     }
 }

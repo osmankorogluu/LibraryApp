@@ -39,7 +39,7 @@ namespace LibraryApp.WebAPI.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("delete")]
         public async Task<IActionResult> Delete(BookDto bookDto)
         {
@@ -73,9 +73,16 @@ namespace LibraryApp.WebAPI.Controllers
         [Route("getall")]
         public IActionResult GetAll()
         {
-            var result = _bookService.GetAll();
-            return Ok(result);
-        }
 
+            var result = _bookService.GetAll();
+            if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
+            {
+                return BadRequest(result);
+            }
+            else
+            {
+                return Ok(result);
+            }
+        }
     }
 }

@@ -58,9 +58,10 @@ namespace LibraryApp.Application.Interfaces.Manager
 
         }
 
-        public List<Book> GetAll()
+        public IDataResult<List<Book>> GetAll()
         {
-            return _bookRepository.GetAll();
+            var book = _bookRepository.GetAll();
+            return new DataResult<List<Book>>(ResultStatus.Success,message: "Listelendi!",book);
         }
 
         public async Task<IResult> UpdateAsync(BookUpdateDto bookUpdateDto)
@@ -73,17 +74,12 @@ namespace LibraryApp.Application.Interfaces.Manager
             {
                 throw new ValidationException(result.Errors);
             }
-
             else
             {
                 var bookEntity = _mapper.Map<Book>(bookUpdateDto);
                 await _bookRepository.UpdateAsync(bookEntity);
                 return new Result(ResultStatus.Success, messages: $"Başarıyla Güncelenmiştir.");
             }
-
-
         }
-
-
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibraryApp.Persistence.Result.Interfaces
 {
-    public interface IDataResult<out T >:IResult
+    public interface IDataResult<out T> : IResult
     {
         public T Data { get; }
     }

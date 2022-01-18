@@ -21,36 +21,67 @@ namespace LibraryApp.WebAPI.Controllers
             _categoryService = categoryService;
         }
 
+
+        [HttpPost]
+        [Route("add")]
+        public async Task<IActionResult> Add(CategoryAddDto categoryAddDto)
+        {
+            var result = await _categoryService.AddAsync(categoryAddDto);
+            if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
+            {
+                return BadRequest(result);
+            }
+            else
+            {
+                return Ok(result);
+            }
+        }
+
+        [HttpPost]
+        [Route("delete")]
+        public async Task<IActionResult> Delete(CategoryDto categoryDto)
+        {
+            var result = await _categoryService.DeleteAsync(categoryDto);
+            if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
+            {
+                return BadRequest(result);
+            }
+            else
+            {
+                return Ok(result);
+            }
+        }
+
+        [HttpPost]
+        [Route("update")]
+        public async Task<IActionResult> Update(CategoryUpdateDto categoryUpdateDto)
+        {
+            var result = await _categoryService.UpdateAsync(categoryUpdateDto);
+            if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
+            {
+                return BadRequest(result);
+            }
+            else
+            {
+                return Ok(result);
+            }
+
+        }
+
         [HttpGet]
         [Route("getall")]
         public IActionResult GetAll()
         {
             var result = _categoryService.GetAll();
-            return Ok(result);
-        }
+            if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
+            {
+                return BadRequest(result);
+            }
+            else
+            {
+                return Ok(result);
+            }
 
-        [HttpPost]
-        [Route("add")]
-        public IActionResult Add(CategoryAddDto categoryAddDto)
-        {
-            _categoryService.Add(categoryAddDto);
-            return Ok();
-        }
-
-        [HttpPost]
-        [Route("delete")]
-        public IActionResult Delete(CategoryDto categoryDto)
-        {
-            _categoryService.Delete(categoryDto);
-            return Ok();
-        }
-
-        [HttpPost]
-        [Route("update")]
-        public IActionResult Update(CategoryUpdateDto categoryUpdateDto)
-        {
-            _categoryService.Update(categoryUpdateDto);
-            return Ok();
         }
     }
 }

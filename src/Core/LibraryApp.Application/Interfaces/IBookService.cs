@@ -11,7 +11,7 @@ namespace LibraryApp.Application.Interfaces
 {
     public interface IBookService
     {
-        List<Book> GetAll();
+        IDataResult<List<Book>> GetAll();
         Task<IResult> AddAsync(BookAddDto bookAddDto);
         Task<IResult> DeleteAsync(BookDto bookDto);
         Task<IResult> UpdateAsync(BookUpdateDto bookUpdateDto);

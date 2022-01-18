@@ -43,13 +43,14 @@ namespace LibraryApp.Persistence.Repositories.Entityframework
             }
         }
 
-        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
+        public  List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
         {
             using (TContext context = new TContext())
             {
                 return filter == null
-                    ? context.Set<TEntity>().ToList()
-                    : context.Set<TEntity>().Where(filter).ToList();
+                 ? context.Set<TEntity>().ToList()
+
+                     : context.Set<TEntity>().Where(filter).ToList();
             }
         }
 
@@ -57,11 +58,13 @@ namespace LibraryApp.Persistence.Repositories.Entityframework
         {
             using (TContext context = new TContext())
             {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
+                var deletedEntity = context.Entry(entity);
+                deletedEntity.State = EntityState.Modified;
                 await context.SaveChangesAsync();
-
             }
         }
     }
 }
+
+
+
