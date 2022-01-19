@@ -58,10 +58,10 @@ namespace LibraryApp.Application.Interfaces.Manager
 
         }
 
-        public IDataResult<List<Book>> GetAll()
+        public async Task<IDataResult<List<Book>>> GetAll()
         {
-            var book = _bookRepository.GetAll();
-            return new DataResult<List<Book>>(ResultStatus.Success,message: "Listelendi!",book);
+            var book = await _bookRepository.GetAll();
+            return new DataResult<List<Book>>(ResultStatus.Success, message: "Listelendi!", book);
         }
 
         public async Task<IResult> UpdateAsync(BookUpdateDto bookUpdateDto)

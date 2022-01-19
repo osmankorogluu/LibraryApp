@@ -1,9 +1,11 @@
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using LibraryApp.Application;
 using LibraryApp.Application.AutoMapper;
 using LibraryApp.Application.FluentValidation;
 using LibraryApp.Application.Interfaces;
 using LibraryApp.Application.Interfaces.Manager;
+using LibraryApp.Persistence;
 using LibraryApp.Persistence.Repositories;
 using LibraryApp.Persistence.Repositories.Entityframework;
 using Microsoft.AspNetCore.Builder;
@@ -43,13 +45,14 @@ namespace LibraryApp.WebAPI
             });
             services.AddSingleton(config.CreateMapper());
 
-            //injection burada mý yapayým 
-            services.AddSingleton<IBookRepository, EfBookRepository>();
-            services.AddSingleton<ICategoryRepository, EfCategoryRepository>();
-            services.AddSingleton<IBookService, BookManager>();
-            services.AddSingleton<ICategoryService, CategoryManager>();
+            ////injection
+            //services.AddSingleton<IBookRepository, EfBookRepository>();
+            //services.AddSingleton<ICategoryRepository, EfCategoryRepository>();
+            //services.AddSingleton<IBookService, BookManager>();
+            //services.AddSingleton<ICategoryService, CategoryManager>();
 
-
+            services.LoadServices();
+            services.LoadRepository();
 
             services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<BookAddDtoValidator>());
             services.AddControllers().AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<CategoryAddDtoValidator>());

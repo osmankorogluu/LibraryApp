@@ -1,6 +1,7 @@
 ﻿using LibraryApp.Application.Dto;
 using LibraryApp.Application.Dto.CategoryDto;
 using LibraryApp.Application.Interfaces;
+using LibraryApp.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -24,7 +25,9 @@ namespace LibraryApp.WebAPI.Controllers
 
         [HttpPost]
         [Route("add")]
-        public async Task<IActionResult> Add(CategoryAddDto categoryAddDto)
+        [ProducesDefaultResponseType(typeof(CategoryAddDto))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> AddAsync(CategoryAddDto categoryAddDto)
         {
             var result = await _categoryService.AddAsync(categoryAddDto);
             if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
@@ -37,9 +40,9 @@ namespace LibraryApp.WebAPI.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("delete")]
-        public async Task<IActionResult> Delete(CategoryDto categoryDto)
+        public async Task<IActionResult> DeleteAsync(CategoryDto categoryDto)
         {
             var result = await _categoryService.DeleteAsync(categoryDto);
             if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
@@ -54,7 +57,9 @@ namespace LibraryApp.WebAPI.Controllers
 
         [HttpPost]
         [Route("update")]
-        public async Task<IActionResult> Update(CategoryUpdateDto categoryUpdateDto)
+        [ProducesDefaultResponseType(typeof(CategoryUpdateDto))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateAsync(CategoryUpdateDto categoryUpdateDto)
         {
             var result = await _categoryService.UpdateAsync(categoryUpdateDto);
             if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
@@ -70,9 +75,11 @@ namespace LibraryApp.WebAPI.Controllers
 
         [HttpGet]
         [Route("getall")]
-        public IActionResult GetAll()
+        [ProducesDefaultResponseType(typeof(List<Category>))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllAsync()
         {
-            var result = _categoryService.GetAll();
+            var result = await _categoryService.GetAll();
             if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
             {
                 return BadRequest(result);
@@ -81,7 +88,6 @@ namespace LibraryApp.WebAPI.Controllers
             {
                 return Ok(result);
             }
-
         }
     }
 }

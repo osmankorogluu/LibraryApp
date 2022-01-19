@@ -54,9 +54,9 @@ namespace LibraryApp.Application.Interfaces.Manager
             return new Result(ResultStatus.Success, messages: $"Kategory Başarıyla Silindi!");
         }
 
-        public IDataResult<List<Category>> GetAll()
+        public async Task<IDataResult<List<Category>>> GetAll()
         {
-            var category = _categoryRepository.GetAll();
+            var category = await _categoryRepository.GetAll();
             return new DataResult<List<Category>>(ResultStatus.Success, message: "Listelendi!", category);
         }
 

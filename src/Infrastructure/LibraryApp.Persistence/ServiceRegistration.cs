@@ -12,7 +12,14 @@ namespace LibraryApp.Persistence
 {
     public static class ServiceRegistration
     {
-      
+        public static IServiceCollection LoadRepository(this IServiceCollection serviceCollection)
+        {
+
+            serviceCollection.AddScoped<IBookRepository, EfBookRepository>();
+            serviceCollection.AddScoped<ICategoryRepository, EfCategoryRepository>();
+
+            return serviceCollection;
+        }
     }
 }
 

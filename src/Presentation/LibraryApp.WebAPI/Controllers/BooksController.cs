@@ -26,7 +26,9 @@ namespace LibraryApp.WebAPI.Controllers
 
         [HttpPost]
         [Route("add")]
-        public async Task<IActionResult> Add(BookAddDto bookAddDto)
+        [ProducesDefaultResponseType(typeof(BookAddDto))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> AddAsync(BookAddDto bookAddDto)
         {
             var result = await _bookService.AddAsync(bookAddDto);
             if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
@@ -41,7 +43,7 @@ namespace LibraryApp.WebAPI.Controllers
 
         [HttpDelete]
         [Route("delete")]
-        public async Task<IActionResult> Delete(BookDto bookDto)
+        public async Task<IActionResult> DeleteAsync(BookDto bookDto)
         {
             var result = await _bookService.DeleteAsync(bookDto);
             if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
@@ -53,10 +55,12 @@ namespace LibraryApp.WebAPI.Controllers
                 return Ok(result);
             }
         }
-
+        
         [HttpPost]
         [Route("update")]
-        public async Task<IActionResult> Update(BookUpdateDto bookUpdateDto)
+        [ProducesDefaultResponseType(typeof(BookUpdateDto))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateAsync(BookUpdateDto bookUpdateDto)
         {
             var result = await _bookService.UpdateAsync(bookUpdateDto);
             if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
@@ -71,10 +75,12 @@ namespace LibraryApp.WebAPI.Controllers
 
         [HttpGet]
         [Route("getall")]
-        public IActionResult GetAll()
+        [ProducesDefaultResponseType(typeof(List<Book>))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAll()
         {
 
-            var result = _bookService.GetAll();
+            var result = await _bookService.GetAll();
             if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
             {
                 return BadRequest(result);
