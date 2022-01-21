@@ -2,6 +2,7 @@
 using LibraryApp.Application.Dto;
 using LibraryApp.Application.Dto.BookDto;
 using LibraryApp.Application.Dto.CategoryDto;
+using LibraryApp.Application.Dto.UserDto;
 using LibraryApp.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,11 @@ namespace LibraryApp.Application.AutoMapper
             CreateMap<CategoryDto, Category>().ForMember(p => p.CategoryName, p1 => p1.MapFrom(x => x.CategoryName)).ReverseMap();
             CreateMap<CategoryAddDto, Category>().ForMember(p => p.CategoryName, p1 => p1.MapFrom(x => x.CategoryName)).ReverseMap();
             CreateMap<CategoryUpdateDto, Category>().ForMember(p => p.Id, p1 => p1.MapFrom(x => x.Id)).ReverseMap();
+
+            //User
+            CreateMap<UserDto, User>().ForMember(p => p.Name, p1 => p1.MapFrom(x => x.Name)).ReverseMap();
+            CreateMap<UserAddDto, User>().ForMember(p => p.Name, p1 => p1.MapFrom(x => x.Name)).ReverseMap();
+            CreateMap<UserUpdateDto, User>().ForMember(p => p.Name, p1 => p1.MapFrom(x => x.Name)).ReverseMap();
         }
     }
 }
