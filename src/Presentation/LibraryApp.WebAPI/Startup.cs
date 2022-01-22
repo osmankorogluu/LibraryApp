@@ -2,7 +2,9 @@ using AutoMapper;
 using FluentValidation.AspNetCore;
 using LibraryApp.Application;
 using LibraryApp.Application.AutoMapper;
+using LibraryApp.Application.AutoMapper.Profiles;
 using LibraryApp.Application.FluentValidation;
+using LibraryApp.Application.FluentValidation.UserValidation;
 using LibraryApp.Application.Interfaces;
 using LibraryApp.Application.Interfaces.Manager;
 using LibraryApp.Persistence;
@@ -41,7 +43,10 @@ namespace LibraryApp.WebAPI
             //AutoMapper registration
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile<MappingProfile>();
+                cfg.AddProfile<BookProfile>();
+                cfg.AddProfile<CategoryProfile>();
+                cfg.AddProfile<UserProfile>();
+
             });
             services.AddSingleton(config.CreateMapper());
 
@@ -56,6 +61,7 @@ namespace LibraryApp.WebAPI
 
             services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<BookAddDtoValidator>());
             services.AddControllers().AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<CategoryAddDtoValidator>());
+            services.AddControllers().AddFluentValidation(y => y.RegisterValidatorsFromAssemblyContaining<UserAddDtoValidator>());
 
             services.AddSwaggerGen(c =>
             {

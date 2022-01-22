@@ -16,5 +16,6 @@ namespace LibraryApp.Persistence.Context
         }
         DbSet<Book> Books { get; set; }
         DbSet<Category> Categories { get; set; }
+        DbSet<User> Users { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace LibraryApp.Persistence
 
             serviceCollection.AddScoped<IBookRepository, EfBookRepository>();
             serviceCollection.AddScoped<ICategoryRepository, EfCategoryRepository>();
+            serviceCollection.AddScoped<IUserRepository, EfUserRepository>();
 
             return serviceCollection;
         }

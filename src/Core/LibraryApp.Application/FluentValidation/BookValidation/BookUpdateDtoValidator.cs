@@ -13,8 +13,8 @@ namespace LibraryApp.Application.FluentValidation.BookValidation
     {
         public BookUpdateDtoValidator()
         {
-            RuleFor(book => book.Name).NotEmpty().WithMessage("Kitap ismi boş geçilemez!");
-            RuleFor(book => book.Name).MinimumLength(5).WithMessage("Kitap İsmi 5 karakterden az olamaz!");
+            RuleFor(book => book.BookName).NotEmpty().WithMessage("Kitap ismi boş geçilemez!");
+            RuleFor(book => book.BookName).MinimumLength(5).WithMessage("Kitap İsmi 5 karakterden az olamaz!");
             RuleFor(book => book.Stock).NotEmpty().WithMessage("Stok fiyatı boş geçilemez!");
             RuleFor(book => book.Price).NotEmpty().WithMessage("Ürün Fiyatı boş geçilemez!");
         }

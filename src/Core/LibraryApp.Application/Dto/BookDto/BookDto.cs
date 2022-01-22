@@ -8,7 +8,7 @@ namespace LibraryApp.Application.Dto.BookDto
 {
    public class BookDto
     {
-        public string Name { get; set; }
+        public string BookName { get; set; }
         public string Writer { get; set; }
         public string Price { get; set; }
         public int NumberPages { get; set; }

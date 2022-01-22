@@ -16,6 +16,7 @@ namespace LibraryApp.Application
             
             serviceCollection.AddScoped<IBookService, BookManager>();
             serviceCollection.AddScoped<ICategoryService, CategoryManager>();
+            serviceCollection.AddScoped<IUserService, UserManager>();
            
             return serviceCollection;
         }
