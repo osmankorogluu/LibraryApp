@@ -23,6 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hangfire;
+using Hangfire.SqlServer;
+using LibraryApp.Persistence.Context;
 
 namespace LibraryApp.WebAPI
 {
@@ -39,6 +42,20 @@ namespace LibraryApp.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddHangfire(configuration => configuration
+        .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+        .UseSimpleAssemblyNameTypeSerializer()
+        .UseRecommendedSerializerSettings()
+        .UseSqlServerStorage(Configuration["ConnectionStrings:HangfireConnection"], new SqlServerStorageOptions
+        {
+            CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+            SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+            QueuePollInterval = TimeSpan.Zero,
+            UseRecommendedIsolationLevel = true,
+            DisableGlobalLocks = true
+        }));
+            services.AddHangfireServer();
+
 
             //AutoMapper registration
             var config = new MapperConfiguration(cfg =>
@@ -49,7 +66,6 @@ namespace LibraryApp.WebAPI
 
             });
             services.AddSingleton(config.CreateMapper());
-
             ////injection
             //services.AddSingleton<IBookRepository, EfBookRepository>();
             //services.AddSingleton<ICategoryRepository, EfCategoryRepository>();
@@ -57,7 +73,7 @@ namespace LibraryApp.WebAPI
             //services.AddSingleton<ICategoryService, CategoryManager>();
 
             services.LoadServices();
-            services.LoadRepository();
+            services.LoadRepository(Configuration);
 
             services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<BookAddDtoValidator>());
             services.AddControllers().AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<CategoryAddDtoValidator>());
@@ -70,7 +86,7 @@ namespace LibraryApp.WebAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IBackgroundJobClient backgroundJobs)
         {
             if (env.IsDevelopment())
             {
@@ -78,6 +94,9 @@ namespace LibraryApp.WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LibraryApp.WebAPI v1"));
             }
+            app.UseHangfireDashboard();
+            backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
+
 
             app.UseHttpsRedirection();
 
@@ -87,6 +106,7 @@ namespace LibraryApp.WebAPI
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHangfireDashboard();
                 endpoints.MapControllers();
             });
         }

@@ -10,8 +10,9 @@ using System.Threading.Tasks;
 namespace LibraryApp.Persistence.Repositories.Entityframework
 {
     public class EfRepositoryBase<TEntity, TContext> : IRepository<TEntity>
-        where TEntity : BaseEntity, new()
-        where TContext : DbContext, new()
+       where TEntity : BaseEntity, new()
+      
+       where TContext : DbContext, new()
 
     {
         public async Task AddAsync(TEntity entity)

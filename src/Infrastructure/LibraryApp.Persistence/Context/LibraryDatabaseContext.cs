@@ -10,12 +10,18 @@ namespace LibraryApp.Persistence.Context
 {
     public class LibraryDatabaseContext : DbContext
     {
+        public LibraryDatabaseContext()
+        {
+        }
+        public LibraryDatabaseContext(DbContextOptions<LibraryDatabaseContext> dbContextOptions):base(dbContextOptions)
+        {
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-0A073BJ\SQLEXPRESS;Database=LibraryApp;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-0A073BJ\\SQLEXPRESS;Database=LibraryApp;Trusted_Connection=true");
         }
-        DbSet<Book> Books { get; set; }
-        DbSet<Category> Categories { get; set; }
-        DbSet<User> Users { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
