@@ -26,11 +26,14 @@ using System.Threading.Tasks;
 using Hangfire;
 using Hangfire.SqlServer;
 using LibraryApp.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
+using LibraryApp.WebAPI.Hangfire;
 
 namespace LibraryApp.WebAPI
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -54,9 +57,13 @@ namespace LibraryApp.WebAPI
             UseRecommendedIsolationLevel = true,
             DisableGlobalLocks = true
         }));
+
             services.AddHangfireServer();
 
+            services.AddDbContext<LibraryDatabaseContext>(options =>
+options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
 
+            services.AddScoped<IJobService, JobService>();
             //AutoMapper registration
             var config = new MapperConfiguration(cfg =>
             {
@@ -66,6 +73,7 @@ namespace LibraryApp.WebAPI
 
             });
             services.AddSingleton(config.CreateMapper());
+
             ////injection
             //services.AddSingleton<IBookRepository, EfBookRepository>();
             //services.AddSingleton<ICategoryRepository, EfCategoryRepository>();

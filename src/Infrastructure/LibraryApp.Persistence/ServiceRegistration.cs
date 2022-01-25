@@ -16,11 +16,6 @@ namespace LibraryApp.Persistence
     {
         public static IServiceCollection LoadRepository(this IServiceCollection serviceCollection,IConfiguration configuration)
         {
-            serviceCollection.AddDbContext<LibraryDatabaseContext>(opt =>
-            {
-                opt.UseSqlServer(@"Server=DESKTOP-0A073BJ\\SQLEXPRESS;Database=LibraryApp;Trusted_Connection=true");
-            });
-
             serviceCollection.AddScoped<IBookRepository, EfBookRepository>();
             serviceCollection.AddScoped<ICategoryRepository, EfCategoryRepository>();
             serviceCollection.AddScoped<IUserRepository, EfUserRepository>();

@@ -12,5 +12,9 @@ namespace LibraryApp.Persistence.Repositories.Entityframework
 {
     public class EfCategoryRepository : EfRepositoryBase<Category, LibraryDatabaseContext>, ICategoryRepository
     {
+        public EfCategoryRepository(LibraryDatabaseContext libraryDatabaseContext):base(libraryDatabaseContext)
+        {//anladım araştırıcam ok analdım nasıl proje githubda var mı
+
+        }
     }
 }

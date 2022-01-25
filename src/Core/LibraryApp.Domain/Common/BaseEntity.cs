@@ -11,3 +11,4 @@ namespace LibraryApp.Domain.Common
         public int Id { get; set; }
     }
 }
+

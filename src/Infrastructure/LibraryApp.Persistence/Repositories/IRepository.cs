@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibraryApp.Persistence.Repositories
 {
-    public interface IRepository<T> where T : BaseEntity, new()
+    public interface IRepository<T> where T :  new()
     {
         Task<List<T>> GetAll(Expression<Func<T, bool>> filter = null);
          T Get(Expression<Func<T, bool>> filter);

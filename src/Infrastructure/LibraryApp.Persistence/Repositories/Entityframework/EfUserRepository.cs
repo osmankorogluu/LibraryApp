@@ -10,7 +10,9 @@ namespace LibraryApp.Persistence.Repositories.Entityframework
 {
    public class EfUserRepository:EfRepositoryBase<User, LibraryDatabaseContext>, IUserRepository
     {
-        //User tablosunu ekle ve diğer alanları uygula
-        //Automapper ksımını düzenle 
+        public EfUserRepository(LibraryDatabaseContext libraryDatabaseContext):base(libraryDatabaseContext)
+        {
+                
+        }
     }
-}
+}//oldı çok saol burayı anlamdım

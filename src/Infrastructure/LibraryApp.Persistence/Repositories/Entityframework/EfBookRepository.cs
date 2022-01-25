@@ -14,5 +14,9 @@ namespace LibraryApp.Persistence.Repositories.Entityframework
 {
     public class EfBookRepository : EfRepositoryBase<Book, LibraryDatabaseContext>, IBookRepository
     {
+        public EfBookRepository(LibraryDatabaseContext libraryDatabaseContext):base(libraryDatabaseContext)
+        {
+               
+        }
     }
 }

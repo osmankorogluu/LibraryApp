@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Hangfire;
 using LibraryApp.Application.ComplexTypes;
 using LibraryApp.Application.Dto;
 using LibraryApp.Application.Dto.BookDto;
@@ -19,10 +20,23 @@ namespace LibraryApp.WebAPI.Controllers
     public class BooksController : ControllerBase
     {
         private readonly IBookService _bookService;
+        
         public BooksController(IBookService bookService)
         {
             _bookService = bookService;
         }
+        //[HttpPost]
+        //[Route("welcome")]
+        //public IActionResult Welcome(string userName)
+        //{
+        //    var jobId = BackgroundJob.Enqueue(() => SendWelcomeMail(userName));
+        //    return Ok($"Job Id {jobId} Completed. Welcome Mail Sent!");
+        //}
+        //public void SendWelcomeMail(string userName)
+        //{
+        //    //Logic to Mail the user
+        //    Console.WriteLine($"Welcome to our application, {userName}");
+        //}
 
         [HttpPost]
         [Route("add")]
