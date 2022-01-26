@@ -58,11 +58,12 @@ namespace LibraryApp.Application.Interfaces.Manager
 
         }
 
-        public async Task<IDataResult<List<Book>>> GetAll()
+        public async Task<IDataResult<List<Book>>> GetAllAsync()
         {
             var book = await _bookRepository.GetAll();
             return new DataResult<List<Book>>(ResultStatus.Success, message: "Listelendi!", book);
         }
+
 
         public async Task<IResult> UpdateAsync(BookUpdateDto bookUpdateDto)
         {
@@ -80,6 +81,12 @@ namespace LibraryApp.Application.Interfaces.Manager
                 await _bookRepository.UpdateAsync(bookEntity);
                 return new Result(ResultStatus.Success, messages: $"Başarıyla Güncelenmiştir.");
             }
+        }
+        public async Task<IDataResult<List<Book>>> GetBookByIdAsync(int bookId)
+        {
+            var result = await _bookRepository.GetAll(x => x.Id == bookId);
+            return new DataResult<List<Book>>(ResultStatus.Success,message:"Listelendi", result);
+           
         }
     }
 }

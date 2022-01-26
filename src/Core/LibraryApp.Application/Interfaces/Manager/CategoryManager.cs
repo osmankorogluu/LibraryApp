@@ -54,12 +54,17 @@ namespace LibraryApp.Application.Interfaces.Manager
             return new Result(ResultStatus.Success, messages: $"Kategory Başarıyla Silindi!");
         }
 
-        public async Task<IDataResult<List<Category>>> GetAll()
+        public async Task<IDataResult<List<Category>>> GetAllAsync()
         {
             var category = await _categoryRepository.GetAll();
             return new DataResult<List<Category>>(ResultStatus.Success, message: "Listelendi!", category);
         }
 
+        public async Task<IDataResult<List<Category>>> GetCategoryByIdAsync(int categoryId)
+        {
+            var result = await _categoryRepository.GetAll(x => x.Id == categoryId);
+            return new DataResult<List<Category>>(ResultStatus.Success, message: "Listelendi" ,result);
+        }
 
         public async Task<IResult> UpdateAsync(CategoryUpdateDto categoryUpdateDto)
         {

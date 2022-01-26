@@ -20,23 +20,11 @@ namespace LibraryApp.WebAPI.Controllers
     public class BooksController : ControllerBase
     {
         private readonly IBookService _bookService;
-        
+
         public BooksController(IBookService bookService)
         {
             _bookService = bookService;
         }
-        //[HttpPost]
-        //[Route("welcome")]
-        //public IActionResult Welcome(string userName)
-        //{
-        //    var jobId = BackgroundJob.Enqueue(() => SendWelcomeMail(userName));
-        //    return Ok($"Job Id {jobId} Completed. Welcome Mail Sent!");
-        //}
-        //public void SendWelcomeMail(string userName)
-        //{
-        //    //Logic to Mail the user
-        //    Console.WriteLine($"Welcome to our application, {userName}");
-        //}
 
         [HttpPost]
         [Route("add")]
@@ -69,7 +57,7 @@ namespace LibraryApp.WebAPI.Controllers
                 return Ok(result);
             }
         }
-        
+
         [HttpPost]
         [Route("update")]
         [ProducesDefaultResponseType(typeof(BookUpdateDto))]
@@ -94,7 +82,7 @@ namespace LibraryApp.WebAPI.Controllers
         public async Task<IActionResult> GetAll()
         {
 
-            var result = await _bookService.GetAll();
+            var result = await _bookService.GetAllAsync();
             if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
             {
                 return BadRequest(result);
@@ -103,6 +91,23 @@ namespace LibraryApp.WebAPI.Controllers
             {
                 return Ok(result);
             }
+        }
+        [HttpGet]
+        [Route("getid")]
+        [ProducesDefaultResponseType(typeof(List<Book>))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetByIdAsync(int id)
+        {
+            var result = await _bookService.GetBookByIdAsync(id);
+            if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
+            {
+                return BadRequest(result);
+            }
+            else
+            {
+                return Ok(result);
+            }
+
         }
     }
 }

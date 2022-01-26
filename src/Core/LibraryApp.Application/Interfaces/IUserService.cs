@@ -11,7 +11,8 @@ namespace LibraryApp.Application.Interfaces
 {
    public interface IUserService
     {
-        Task<IDataResult<List<User>>> GetAll();
+        Task<IDataResult<List<User>>> GetAllAsync();
+        Task<IDataResult<List<User>>> GetUserByIdAsync(int userId);
         Task<IResult> AddAsync(UserAddDto userAddDto);
         Task<IResult> DeleteAsync(UserDto userDto);
         Task<IResult> UpdateAsync(UserUpdateDto userUpdateDto);

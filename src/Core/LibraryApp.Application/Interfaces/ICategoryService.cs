@@ -12,7 +12,8 @@ namespace LibraryApp.Application.Interfaces
 {
     public interface ICategoryService
     {
-        Task<IDataResult<List<Category>>> GetAll();
+        Task<IDataResult<List<Category>>> GetAllAsync();
+        Task<IDataResult<List<Category>>> GetCategoryByIdAsync(int categoryId);
         Task<IResult> AddAsync(CategoryAddDto categoryAddDto);
         Task<IResult> DeleteAsync(CategoryDto categoryDto);
         Task<IResult> UpdateAsync(CategoryUpdateDto categoryUpdateDto);

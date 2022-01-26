@@ -79,7 +79,23 @@ namespace LibraryApp.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
-            var result = await _categoryService.GetAll();
+            var result = await _categoryService.GetAllAsync();
+            if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
+            {
+                return BadRequest(result);
+            }
+            else
+            {
+                return Ok(result);
+            }
+        }
+        [HttpGet]
+        [Route("getid")]
+        [ProducesDefaultResponseType(typeof(List<Category>))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetByIdAsync(int id)
+        {
+            var result = await _categoryService.GetCategoryByIdAsync(id);
             if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
             {
                 return BadRequest(result);

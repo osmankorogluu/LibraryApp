@@ -56,10 +56,16 @@ namespace LibraryApp.Application.Interfaces.Manager
 
         }
 
-        public async Task<IDataResult<List<User>>> GetAll()
+        public async Task<IDataResult<List<User>>> GetAllAsync()
         {
             var user = await _userRepository.GetAll();
             return new DataResult<List<User>>(ResultStatus.Success, message: "Listelendi!", user);
+        }
+
+        public async Task<IDataResult<List<User>>> GetUserByIdAsync(int userId)
+        {
+            var result = await _userRepository.GetAll(x => x.Id == userId);
+            return new DataResult<List<User>>(ResultStatus.Success, message: "Listelendi", result);
         }
 
         public async Task<IResult> UpdateAsync(UserUpdateDto userUpdateDto)

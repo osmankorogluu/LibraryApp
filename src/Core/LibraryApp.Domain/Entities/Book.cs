@@ -9,6 +9,7 @@ namespace LibraryApp.Domain.Entities
 {
     public class Book : BaseEntity
     {
+        public int CategoryId { get; set; }
         public string Name { get; set; }
         public string Writer { get; set; }
         public string Price { get; set; }

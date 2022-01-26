@@ -78,7 +78,7 @@ namespace LibraryApp.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
-            var result = await _userService.GetAll();
+            var result = await _userService.GetAllAsync();
             if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
             {
                 return BadRequest(result);
@@ -87,6 +87,24 @@ namespace LibraryApp.WebAPI.Controllers
             {
                 return Ok(result);
             }
+        }
+
+        [HttpGet]
+        [Route("getid")]
+        [ProducesDefaultResponseType(typeof(List<User>))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetByIdAsync(int id)
+        {
+            var result = await _userService.GetUserByIdAsync(id);
+            if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
+            {
+                return BadRequest(result);
+            }
+            else
+            {
+                return Ok(result);
+            }
+
         }
     }
 }
