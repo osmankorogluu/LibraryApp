@@ -55,7 +55,6 @@ namespace LibraryApp.Application.Interfaces.Manager
             var bookEntity = _mapper.Map<Book>(bookDto);
             await _bookRepository.DeleteAsync(bookEntity);
             return new Result(ResultStatus.Success, messages: $"Başarıyla Silinmiştir");
-
         }
 
         public async Task<IDataResult<List<Book>>> GetAllAsync()
@@ -85,8 +84,8 @@ namespace LibraryApp.Application.Interfaces.Manager
         public async Task<IDataResult<List<Book>>> GetBookByIdAsync(int bookId)
         {
             var result = await _bookRepository.GetAll(x => x.Id == bookId);
-            return new DataResult<List<Book>>(ResultStatus.Success,message:"Listelendi", result);
-           
+            return new DataResult<List<Book>>(ResultStatus.Success, message: "Listelendi", result);
+
         }
     }
 }

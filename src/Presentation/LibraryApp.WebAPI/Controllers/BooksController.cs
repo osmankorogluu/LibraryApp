@@ -8,6 +8,8 @@ using LibraryApp.Application.Interfaces;
 using LibraryApp.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +22,16 @@ namespace LibraryApp.WebAPI.Controllers
     public class BooksController : ControllerBase
     {
         private readonly IBookService _bookService;
+        private readonly ILogger _logger;
 
-        public BooksController(IBookService bookService)
+
+        public BooksController(IBookService bookService, ILogger<BooksController> logger)
         {
             _bookService = bookService;
+            _logger = logger;
         }
+
+        public string Message { get; set; }
 
         [HttpPost]
         [Route("add")]
@@ -32,6 +39,11 @@ namespace LibraryApp.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddAsync(BookAddDto bookAddDto)
         {
+            Message = $"Logger successful {DateTime.UtcNow.ToLongTimeString()}";
+            _logger.LogInformation(Message);
+           
+           
+
             var result = await _bookService.AddAsync(bookAddDto);
             if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)
             {
@@ -81,6 +93,9 @@ namespace LibraryApp.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
         {
+            Message = $"Logger successful {DateTime.UtcNow.ToLongTimeString()}";
+            _logger.LogInformation(Message);
+
 
             var result = await _bookService.GetAllAsync();
             if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)

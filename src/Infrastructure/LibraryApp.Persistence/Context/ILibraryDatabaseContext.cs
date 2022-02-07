@@ -12,7 +12,5 @@ namespace LibraryApp.Persistence.Context
    public interface ILibraryDatabaseContext
     {
 
-        //Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-        //DbSet<TEntity> Set<TEntity>() where TEntity : class;
     }
 }

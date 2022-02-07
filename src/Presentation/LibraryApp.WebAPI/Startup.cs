@@ -57,6 +57,7 @@ namespace LibraryApp.WebAPI
             UseRecommendedIsolationLevel = true,
             DisableGlobalLocks = true
         }));
+            
 
             services.AddHangfireServer();
 

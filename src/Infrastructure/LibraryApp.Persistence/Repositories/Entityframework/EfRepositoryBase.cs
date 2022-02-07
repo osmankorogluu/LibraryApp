@@ -22,7 +22,7 @@ namespace LibraryApp.Persistence.Repositories.Entityframework
             _context = context;
         }
 
-        public async Task AddAsync(TEntity entity)//ne yazmama lazım yani
+        public async Task AddAsync(TEntity entity)
         {
             var addedEntity = _context.Entry(entity);
             addedEntity.State = EntityState.Added;
