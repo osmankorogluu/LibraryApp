@@ -28,6 +28,11 @@ using Hangfire.SqlServer;
 using LibraryApp.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using LibraryApp.WebAPI.Hangfire;
+using LibraryApp.Application.JWT;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
 
 namespace LibraryApp.WebAPI
 {
@@ -57,8 +62,9 @@ namespace LibraryApp.WebAPI
             UseRecommendedIsolationLevel = true,
             DisableGlobalLocks = true
         }));
-            
-
+            //JWT
+           services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+           
             services.AddHangfireServer();
 
             services.AddDbContext<LibraryDatabaseContext>(options =>
@@ -80,6 +86,34 @@ options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
             //services.AddSingleton<ICategoryRepository, EfCategoryRepository>();
             //services.AddSingleton<IBookService, BookManager>();
             //services.AddSingleton<ICategoryService, CategoryManager>();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+.AddJwtBearer(jwt =>
+{
+    var key = Encoding.ASCII.GetBytes(Configuration["JwtConfig:Secret"]);
+
+    jwt.SaveToken = true;
+    jwt.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true, // this will validate the 3rd part of the jwt token using the secret that we added in the appsettings and verify we have generated the jwt token
+        IssuerSigningKey = new SymmetricSecurityKey(key), // Add the secret key to our Jwt encryption
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        RequireExpirationTime = false,
+        ValidateLifetime = true
+    };
+});
+
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //                .AddEntityFrameworkStores<ApiDbContext>();
+            services.AddEntityFrameworkSqlServer().AddDbContext<ApiDbContext>();
+            //services.AddIdentity<IdentityUser, IdentityRole>()
+            //                .AddEntityFrameworkStores<ApiDbContext>()
+            //                .AddDefaultTokenProviders();
 
             services.LoadServices();
             services.LoadRepository(Configuration);
@@ -105,7 +139,7 @@ options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
             }
             app.UseHangfireDashboard();
             backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
-
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
 
@@ -118,6 +152,7 @@ options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
                 endpoints.MapHangfireDashboard();
                 endpoints.MapControllers();
             });
+
         }
     }
 }
