@@ -12,5 +12,6 @@ namespace LibraryApp.Persistence.Repositories
 {
     public interface IBookRepository : IRepository<Book>
     {
+       
     }
 }

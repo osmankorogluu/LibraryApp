@@ -81,9 +81,9 @@ namespace LibraryApp.Application.Interfaces.Manager
                 return new Result(ResultStatus.Success, messages: $"Başarıyla Güncelenmiştir.");
             }
         }
-        public async Task<IDataResult<List<Book>>> GetBookByIdAsync(int bookId)
+        public async Task<IDataResult<List<Book>>> GetBookByIdAsync(string bookId)
         {
-            var result = await _bookRepository.GetAll(x => x.Id == bookId);
+            var result = await _bookRepository.GetAll(x => x.Id == Guid.Parse(bookId));
             return new DataResult<List<Book>>(ResultStatus.Success, message: "Listelendi", result);
 
         }

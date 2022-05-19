@@ -62,9 +62,9 @@ namespace LibraryApp.Application.Interfaces.Manager
             return new DataResult<List<User>>(ResultStatus.Success, message: "Listelendi!", user);
         }
 
-        public async Task<IDataResult<List<User>>> GetUserByIdAsync(int userId)
+        public async Task<IDataResult<List<User>>> GetUserByIdAsync(string userId)
         {
-            var result = await _userRepository.GetAll(x => x.Id == userId);
+            var result = await _userRepository.GetAll(x => x.Id == Guid.Parse(userId));
             return new DataResult<List<User>>(ResultStatus.Success, message: "Listelendi", result);
         }
 

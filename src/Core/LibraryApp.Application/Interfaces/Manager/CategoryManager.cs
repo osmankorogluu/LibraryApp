@@ -60,9 +60,9 @@ namespace LibraryApp.Application.Interfaces.Manager
             return new DataResult<List<Category>>(ResultStatus.Success, message: "Listelendi!", category);
         }
 
-        public async Task<IDataResult<List<Category>>> GetCategoryByIdAsync(int categoryId)
+        public async Task<IDataResult<List<Category>>> GetCategoryByIdAsync(string categoryId)
         {
-            var result = await _categoryRepository.GetAll(x => x.Id == categoryId);
+            var result = await _categoryRepository.GetAll(x => x.Id == Guid.Parse(categoryId));
             return new DataResult<List<Category>>(ResultStatus.Success, message: "Listelendi" ,result);
         }
 

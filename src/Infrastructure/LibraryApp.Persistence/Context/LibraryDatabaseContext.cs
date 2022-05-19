@@ -13,15 +13,9 @@ namespace LibraryApp.Persistence.Context
 {
     public class LibraryDatabaseContext : DbContext
     {
-        
-        public LibraryDatabaseContext(DbContextOptions<LibraryDatabaseContext> options): base(options)
+        public LibraryDatabaseContext(DbContextOptions<LibraryDatabaseContext> options) : base(options)
         {
 
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-0A073BJ\\SQLEXPRESS;Initial Catalog=LibraryApp;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
 
         public DbSet<Book> Books { get; set; }

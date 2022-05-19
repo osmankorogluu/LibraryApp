@@ -13,7 +13,7 @@ namespace LibraryApp.Application.FluentValidation
         public CategoryAddDtoValidator()
         {
             RuleFor(p => p.CategoryName).NotEmpty().WithMessage("Kategory adı boş geçilemez!");
-            RuleFor(p => p.CategoryName).MaximumLength(5).WithMessage("Kategory adı 5 karakterden küçük olamaz!");
+            RuleFor(p => p.CategoryName).MinimumLength(5).WithMessage("Kategory adı 5 karakterden küçük olamaz!");
         }
     }
 }

@@ -111,7 +111,7 @@ namespace LibraryApp.WebAPI.Controllers
         [Route("getid")]
         [ProducesDefaultResponseType(typeof(List<Book>))]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetByIdAsync(int id)
+        public async Task<IActionResult> GetByIdAsync(string id)
         {
             var result = await _bookService.GetBookByIdAsync(id);
             if (result.ResultStatus == Persistence.Result.ComplexTypes.ResultStatus.Error)

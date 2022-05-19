@@ -13,9 +13,9 @@ namespace LibraryApp.Application.AutoMapper.Profiles
     {
         public UserProfile()
         {
-            CreateMap<UserDto, User>().ForMember(p => p.Name, p1 => p1.MapFrom(x => x.UserName)).ReverseMap();
-            CreateMap<UserAddDto, User>().ForMember(p => p.Name, p1 => p1.MapFrom(x => x.UserName)).ReverseMap();
-            CreateMap<UserUpdateDto, User>().ForMember(p => p.Name, p1 => p1.MapFrom(x => x.UserName)).ReverseMap();
+            CreateMap<UserDto, User>().ForMember(p => p.FirstName, p1 => p1.MapFrom(x => x.UserName)).ReverseMap();
+            CreateMap<UserAddDto, User>().ForMember(p => p.FirstName, p1 => p1.MapFrom(x => x.UserName)).ReverseMap();
+            CreateMap<UserUpdateDto, User>().ForMember(p => p.FirstName, p1 => p1.MapFrom(x => x.UserName)).ReverseMap();
         }
     }
 }

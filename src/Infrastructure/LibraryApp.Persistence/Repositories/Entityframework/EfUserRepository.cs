@@ -15,4 +15,4 @@ namespace LibraryApp.Persistence.Repositories.Entityframework
                 
         }
     }
-}//oldı çok saol burayı anlamdım
+}

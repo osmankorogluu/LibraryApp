@@ -12,7 +12,7 @@ namespace LibraryApp.Application.Interfaces
     public interface IBookService
     {
         Task<IDataResult<List<Book>>> GetAllAsync();
-        Task<IDataResult<List<Book>>> GetBookByIdAsync(int bookId);
+        Task<IDataResult<List<Book>>> GetBookByIdAsync(string bookId);
         Task<IResult> AddAsync(BookAddDto bookAddDto);
         Task<IResult> DeleteAsync(BookDto bookDto);
         Task<IResult> UpdateAsync(BookUpdateDto bookUpdateDto);
