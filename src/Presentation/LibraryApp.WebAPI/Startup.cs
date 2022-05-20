@@ -31,6 +31,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
+using LibraryApp.Application.Extensions;
 
 namespace LibraryApp.WebAPI
 {
@@ -55,7 +56,13 @@ namespace LibraryApp.WebAPI
 
             services
     .AddControllers()
+     .AddJsonOptions(opt =>
+     {
+         opt.JsonSerializerOptions.PropertyNamingPolicy = null;
+     })
     .AddFluentValidation();
+
+            services.AddApplicationRegistration();
 
             //AutoMapper registration
             var config = new MapperConfiguration(cfg =>

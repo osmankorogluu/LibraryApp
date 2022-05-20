@@ -59,6 +59,37 @@ namespace LibraryApp.Persistence.Repositories.Entityframework
             deletedEntity.State = EntityState.Modified;
             await dbContext.SaveChangesAsync();
         }
+
+        public virtual async Task<TEntity> GetSingleAsync(Expression<Func<TEntity, bool>> predicate, bool noTracking = true, params Expression<Func<TEntity, object>>[] includes)
+        {
+            IQueryable<TEntity> query = entity;
+
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
+
+            query = ApplyIncludes(query, includes);
+
+            if (noTracking)
+                query = query.AsNoTracking();
+
+            return await query.SingleOrDefaultAsync();
+
+        }
+        private static IQueryable<TEntity> ApplyIncludes(IQueryable<TEntity> query, params Expression<Func<TEntity, object>>[] includes)
+        {
+            if (includes != null)
+            {
+                foreach (var includeItem in includes)
+                {
+                    query = query.Include(includeItem);
+                }
+            }
+
+            return query;
+        }
+
     }
 }
 
