@@ -25,8 +25,8 @@ namespace LibraryApp.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<string>("CategoryId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -62,6 +62,9 @@ namespace LibraryApp.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("CategoryName")
                         .HasColumnType("nvarchar(max)");
 
@@ -69,6 +72,8 @@ namespace LibraryApp.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BookId");
 
                     b.ToTable("Categories");
                 });
@@ -113,6 +118,18 @@ namespace LibraryApp.Persistence.Migrations
                     b.HasOne("LibraryApp.Domain.Entities.User", null)
                         .WithMany("Books")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("LibraryApp.Domain.Entities.Category", b =>
+                {
+                    b.HasOne("LibraryApp.Domain.Entities.Book", null)
+                        .WithMany("Categories")
+                        .HasForeignKey("BookId");
+                });
+
+            modelBuilder.Entity("LibraryApp.Domain.Entities.Book", b =>
+                {
+                    b.Navigation("Categories");
                 });
 
             modelBuilder.Entity("LibraryApp.Domain.Entities.User", b =>

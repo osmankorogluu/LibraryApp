@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace LibraryApp.Persistence.Repositories
 {
-    public interface IRepository<T> where T :  new()
+    public interface IRepository<TEntity> where TEntity : class
     {
-        Task<List<T>> GetAll(Expression<Func<T, bool>> filter = null);
-         T Get(Expression<Func<T, bool>> filter);
-        Task AddAsync(T entity);
-        Task DeleteAsync(T entity);
-        Task UpdateAsync(T entity);
+        Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> filter = null);
+        TEntity Get(Expression<Func<TEntity, bool>> filter);
+        Task AddAsync(TEntity entity);
+        Task DeleteAsync(TEntity entity);
+        
+        Task UpdateAsync(TEntity entity);
     }
 }

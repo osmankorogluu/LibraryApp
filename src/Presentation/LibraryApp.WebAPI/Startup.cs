@@ -27,8 +27,6 @@ using Hangfire;
 using Hangfire.SqlServer;
 using LibraryApp.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-
-using LibraryApp.Application.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
@@ -53,8 +51,11 @@ namespace LibraryApp.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<LibraryDatabaseContext>(options =>
-                   options.UseSqlServer(Configuration.GetConnectionString("BloggingDatabase")));
+                    options.UseSqlServer(Configuration.GetConnectionString("BloggingDatabase")));
 
+            services
+    .AddControllers()
+    .AddFluentValidation();
 
             //AutoMapper registration
             var config = new MapperConfiguration(cfg =>

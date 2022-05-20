@@ -15,45 +15,49 @@ namespace LibraryApp.Persistence.Repositories.Entityframework
        where TContext : DbContext
 
     {
-        private readonly TContext _context;
+        private readonly DbContext dbContext;
 
-        public EfRepositoryBase(TContext context)
+
+        protected DbSet<TEntity> entity => dbContext.Set<TEntity>();
+
+        public EfRepositoryBase(DbContext dbContext)
         {
-            _context = context;
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
+
 
         public async Task AddAsync(TEntity entity)
         {
-            var addedEntity = _context.Entry(entity);
+            var addedEntity = dbContext.Entry(entity);
             addedEntity.State = EntityState.Added;
-            await _context.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(TEntity entity)
         {
-            var deletedEntity = _context.Entry(entity);
+            var deletedEntity = dbContext.Entry(entity);
             deletedEntity.State = EntityState.Deleted;
-            await _context.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
         }
 
         public TEntity Get(Expression<Func<TEntity, bool>> filter)
         {
-            return _context.Set<TEntity>().SingleOrDefault(filter);
+            return dbContext.Set<TEntity>().SingleOrDefault(filter);
         }
 
         public async Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> filter = null)
         {
             return filter == null
-             ? await _context.Set<TEntity>().ToListAsync()
+             ? await dbContext.Set<TEntity>().ToListAsync()
 
-               : await _context.Set<TEntity>().Where(filter).ToListAsync();
+               : await dbContext.Set<TEntity>().Where(filter).ToListAsync();
         }
 
         public async Task UpdateAsync(TEntity entity)
         {
-            var deletedEntity = _context.Entry(entity);
+            var deletedEntity = dbContext.Entry(entity);
             deletedEntity.State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
         }
     }
 }
