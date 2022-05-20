@@ -23,7 +23,7 @@ Follow these steps to get your development environment set up:
 * MSSQL
 * Fluent Validation
 * AutoMapper
+* MediatR
 
 ## Functionalities
 -  Basic CRUD operations with CQRS 
-x
