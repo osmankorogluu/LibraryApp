@@ -30,5 +30,9 @@ namespace LibraryApp.Persistence.Result.Concrete
         public string Message { get; }
 
         public Exception Exception { get; }
+
+        public bool Success => throw new NotImplementedException();
+
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using LibraryApp.Persistence.Context;
+﻿using LibraryApp.Infrastructure;
+using LibraryApp.Persistence.Context;
 using LibraryApp.Persistence.Repositories;
 using LibraryApp.Persistence.Repositories.Entityframework;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace LibraryApp.Persistence
             serviceCollection.AddScoped<IBookRepository, EfBookRepository>();
             serviceCollection.AddScoped<ICategoryRepository, EfCategoryRepository>();
             serviceCollection.AddScoped<IUserRepository, EfUserRepository>();
+            serviceCollection.AddScoped<IBookImageRepository, EfBookImageRepository>();
 
             return serviceCollection;
         }

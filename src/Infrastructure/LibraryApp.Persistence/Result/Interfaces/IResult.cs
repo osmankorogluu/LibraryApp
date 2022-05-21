@@ -12,5 +12,6 @@ namespace LibraryApp.Persistence.Result.Interfaces
         public ResultStatus ResultStatus { get; }
         public string Message { get; }
         public Exception Exception { get; }
+        bool Success { get; }
     }
 }

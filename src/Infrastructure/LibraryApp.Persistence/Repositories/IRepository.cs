@@ -16,5 +16,9 @@ namespace LibraryApp.Persistence.Repositories
         Task DeleteAsync(TEntity entity);
         Task<TEntity> GetSingleAsync(Expression<Func<TEntity, bool>> predicate, bool noTracking = true, params Expression<Func<TEntity, object>>[] includes);
         Task UpdateAsync(TEntity entity);
+        List<TEntity> GetAlls(Expression<Func<TEntity, bool>> filter = null);
+        void Add(TEntity entity);
+        void Delete(TEntity entity);
+        void Update(TEntity entity);
     }
 }

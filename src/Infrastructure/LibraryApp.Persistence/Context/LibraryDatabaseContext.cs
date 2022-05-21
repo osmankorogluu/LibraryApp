@@ -13,6 +13,10 @@ namespace LibraryApp.Persistence.Context
 {
     public class LibraryDatabaseContext : DbContext
     {
+        public LibraryDatabaseContext()
+        {
+        }
+
         public LibraryDatabaseContext(DbContextOptions<LibraryDatabaseContext> options) : base(options)
         {
         }
@@ -20,5 +24,6 @@ namespace LibraryApp.Persistence.Context
         public DbSet<Book> Books { get; private set; }
         public DbSet<Category> Categories { get; private  set; }
         public DbSet<User> Users { get;  set; }
+        public DbSet<BookImage> BookImages { get; set; }
     }
 }

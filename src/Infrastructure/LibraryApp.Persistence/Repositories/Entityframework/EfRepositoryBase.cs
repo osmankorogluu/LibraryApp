@@ -90,8 +90,51 @@ namespace LibraryApp.Persistence.Repositories.Entityframework
             return query;
         }
 
+        public void Add(TEntity entity)
+        {
+            //IDisposable pattern implementation of C#
+
+            var addedEntity = dbContext.Entry(entity);
+            addedEntity.State = EntityState.Added;
+            dbContext.SaveChanges();
+
+        }
+
+        public void Delete(TEntity entity)
+        {
+
+            var deletedEntity = dbContext.Entry(entity);
+            deletedEntity.State = EntityState.Deleted;
+            dbContext.SaveChanges();
+
+        }
+
+        public TEntity Gets(Expression<Func<TEntity, bool>> filter)
+        {
+
+            return dbContext.Set<TEntity>().SingleOrDefault(filter);
+
+        }
+
+        public List<TEntity> GetAlls(Expression<Func<TEntity, bool>> filter = null)
+        {
+
+            return filter == null ? dbContext.Set<TEntity>().ToList() :
+                dbContext.Set<TEntity>().Where(filter).ToList();
+
+        }
+
+        public void Update(TEntity entity)
+        {
+
+            var updatedEntity = dbContext.Entry(entity);
+            updatedEntity.State = EntityState.Modified;
+            dbContext.SaveChanges();
+
+        }
     }
 }
+
 
 
 
