@@ -2,6 +2,7 @@
 using LibraryApp.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace LibraryApp.WebAPI.Controllers
 {
@@ -18,8 +19,7 @@ namespace LibraryApp.WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        
-        public IActionResult Add( BookImage bookImage, IFormFile file)
+        public IActionResult Add(BookImage bookImage, IFormFile file)
         {
             var result = _bookImageService.Add(bookImage, file);
             if (result.Success)
@@ -30,7 +30,6 @@ namespace LibraryApp.WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        
         public IActionResult Update(BookImage bookImage)
         {
             var result = _bookImageService.Update(bookImage);
@@ -91,7 +90,7 @@ namespace LibraryApp.WebAPI.Controllers
 
         [HttpGet]
         [Route("getbybookid")]
-        public IActionResult GetByBookId(int bookId)
+        public IActionResult GetByBookId(string bookId)
         {
             var result = _bookImageService.GetAllByBookId(bookId);
             if (result.Success)

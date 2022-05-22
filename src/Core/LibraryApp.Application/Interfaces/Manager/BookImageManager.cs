@@ -42,7 +42,7 @@ namespace LibraryApp.Application.Interfaces.Manager
         }
 
       
-        public IResult AddRange(int bookId, List<IFormFile> file)
+        public IResult AddRange(string bookId, List<IFormFile> file)
         {
             List<BookImage> carImages = new List<BookImage>();
             foreach (IFormFile x in file)
@@ -71,7 +71,7 @@ namespace LibraryApp.Application.Interfaces.Manager
             // new SuccessDataResult<List<Book>>(_bookImageDal.GetAlls());
             return null;
         }
-        public IDataResult<List<BookImage>> GetAllByBookId(int bookId)
+        public IDataResult<List<BookImage>> GetAllByBookId(string bookId)
         {
             return null;
         }
@@ -106,7 +106,7 @@ namespace LibraryApp.Application.Interfaces.Manager
             return new Result(ResultStatus.Success, messages: $"Başarıyla Eklendi");
         }
 
-        private IResult CheckIfImageLimitExceded(int bookId)
+        private IResult CheckIfImageLimitExceded(string bookId)
         {
             var result = _bookImageDal.GetAlls(c => c.BookId == bookId).Count;
 
@@ -114,7 +114,7 @@ namespace LibraryApp.Application.Interfaces.Manager
             return new Result(ResultStatus.Success, messages: $"Başarıyla Eklendi");
         }
 
-        private IResult CheckIfCarHasAnyImage(int bookId)
+        private IResult CheckIfCarHasAnyImage(string bookId)
         {
             var result = _bookImageDal.GetAlls(c => c.BookId == bookId).Any();
 

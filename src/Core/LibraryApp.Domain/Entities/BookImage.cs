@@ -10,9 +10,10 @@ namespace LibraryApp.Domain.Entities
     public class BookImage:BaseEntity
     {
         public int Id { get; set; }
-        public int BookId { get; set; }
+        public string BookId { get; set; }
         public string ImageUrl { get; set; }
         public DateTime Date { get; set; }
+        public virtual ICollection<Book> Books { get; set; }
 
     }
 }

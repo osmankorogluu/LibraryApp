@@ -13,9 +13,9 @@ namespace LibraryApp.Application.Interfaces
     {
         IDataResult< List<BookImage>> GetAll();
         IDataResult <BookImage> GetById(int id);
-        IDataResult <List<BookImage>> GetAllByBookId(int bookId);
+        IDataResult <List<BookImage>> GetAllByBookId(string bookId);
         IResult Add(BookImage bookImage, IFormFile file);
-        IResult AddRange(int bookId, List<IFormFile> file);
+        IResult AddRange(string bookId, List<IFormFile> file);
         IResult Delete(BookImage bookImage);
         IResult Update(BookImage bookImage);
         IResult DeleteById(int id);

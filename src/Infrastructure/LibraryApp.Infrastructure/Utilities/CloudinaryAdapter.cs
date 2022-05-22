@@ -21,7 +21,11 @@ namespace LibraryApp.Infrastructure.Utilities
                 var fileBytes = ms.ToArray();
                 picture = Convert.ToBase64String(fileBytes);
             }
-            Account account = new Account("emreaka", "946292829472262", "AOtqB7yeA2UVCUpT-0fuStKnIYU");
+            Account account = new Account(
+   "dj9hfdfcb",
+   "592155627566213",
+   "tLuve4MF_gThYoC7Isxx62wcgtg");
+
             Cloudinary cloudinary = new Cloudinary(account);
             var uploadParams = new ImageUploadParams()
             {

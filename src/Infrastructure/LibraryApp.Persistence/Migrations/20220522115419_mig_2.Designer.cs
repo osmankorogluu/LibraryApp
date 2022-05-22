@@ -4,14 +4,16 @@ using LibraryApp.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LibraryApp.Persistence.Migrations
 {
     [DbContext(typeof(LibraryDatabaseContext))]
-    partial class LibraryDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220522115419_mig_2")]
+    partial class mig_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,9 +26,6 @@ namespace LibraryApp.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("BookImageId")
-                        .HasColumnType("int");
 
                     b.Property<string>("CategoryId")
                         .HasColumnType("nvarchar(max)");
@@ -54,8 +53,6 @@ namespace LibraryApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookImageId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Books");
@@ -68,8 +65,8 @@ namespace LibraryApp.Persistence.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("BookId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -144,10 +141,6 @@ namespace LibraryApp.Persistence.Migrations
 
             modelBuilder.Entity("LibraryApp.Domain.Entities.Book", b =>
                 {
-                    b.HasOne("LibraryApp.Domain.Entities.BookImage", null)
-                        .WithMany("Books")
-                        .HasForeignKey("BookImageId");
-
                     b.HasOne("LibraryApp.Domain.Entities.User", null)
                         .WithMany("Books")
                         .HasForeignKey("UserId");
@@ -163,11 +156,6 @@ namespace LibraryApp.Persistence.Migrations
             modelBuilder.Entity("LibraryApp.Domain.Entities.Book", b =>
                 {
                     b.Navigation("Categories");
-                });
-
-            modelBuilder.Entity("LibraryApp.Domain.Entities.BookImage", b =>
-                {
-                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("LibraryApp.Domain.Entities.User", b =>
